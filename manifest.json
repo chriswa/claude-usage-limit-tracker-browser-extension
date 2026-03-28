@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Claude Usage Limit Tracker",
+  "version": "1.0",
+  "description": "Park a tab on https://claude.ai/settings/usage — usage data is automatically saved to ~/Downloads/claude-usage-{org}.json whenever the page fetches updated usage data.",
+  "permissions": ["downloads", "downloads.ui", "tabs"],
+  "host_permissions": ["https://claude.ai/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://claude.ai/settings/usage*"],
+      "js": ["interceptor.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://claude.ai/settings/usage*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ]
+}
