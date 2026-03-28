@@ -154,16 +154,18 @@ function onSaved({ filename, downloadId, timestamp, data }) {
 
   if (data?.five_hour) {
     const { utilization, resets_at } = data.five_hour;
-    const projected = projectUtilization(utilization, resets_at, FIVE_HOURS_MS, timestamp);
-    document.getElementById('cut-five-hour').textContent =
-      `5h: ${utilization}% (${projected}% by ${formatResetTime(resets_at)})`;
+    const text = resets_at
+      ? `5h: ${utilization}% (${projectUtilization(utilization, resets_at, FIVE_HOURS_MS, timestamp)}% by ${formatResetTime(resets_at)})`
+      : `5h: ${utilization}%`;
+    document.getElementById('cut-five-hour').textContent = text;
   }
 
   if (data?.seven_day) {
     const { utilization, resets_at } = data.seven_day;
-    const projected = projectUtilization(utilization, resets_at, SEVEN_DAYS_MS, timestamp);
-    document.getElementById('cut-seven-day').textContent =
-      `7d: ${utilization}% (${projected}% by ${formatResetTime(resets_at)})`;
+    const text = resets_at
+      ? `7d: ${utilization}% (${projectUtilization(utilization, resets_at, SEVEN_DAYS_MS, timestamp)}% by ${formatResetTime(resets_at)})`
+      : `7d: ${utilization}%`;
+    document.getElementById('cut-seven-day').textContent = text;
   }
 }
 
